@@ -233,6 +233,11 @@ class Attention(nn.Module):
         v = self.c_v(x).view(B, T, self.num_kv_heads, self.head_dim).transpose(1, 2)
         q = self.q_norm(q)
         k = self.k_norm(k)
+        # GQA: repeat KV heads to match Q heads
+        n_rep = self.num_heads // self.num_kv_heads
+        if n_rep > 1:
+            k = k.unsqueeze(2).expand(-1, -1, n_rep, -1, -1).reshape(B, self.num_heads, T, self.head_dim)
+            v = v.unsqueeze(2).expand(-1, -1, n_rep, -1, -1).reshape(B, self.num_heads, T, self.head_dim)
         y = F.scaled_dot_product_attention(q, k, v, is_causal=True, scale=self.scale)
         return self.proj(y.transpose(1, 2).contiguous().view(B, T, C))
 
