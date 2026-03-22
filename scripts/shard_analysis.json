@@ -1,0 +1,94 @@
+{
+  "shards": [
+    {
+      "file": "fineweb_train_000000.bin",
+      "path": "parameter-golf/data/datasets/fineweb10B_sp1024/fineweb_train_000000.bin",
+      "n_tokens": 100000000,
+      "entropy": 8.650238,
+      "bigram_entropy": 14.502776,
+      "unique_tokens": 886,
+      "vocab_coverage": 0.8652,
+      "top10_concentration": 0.1457,
+      "repetition_ratio": 0.225175,
+      "avg_bytes_per_token": 2.0313
+    },
+    {
+      "file": "fineweb_train_000001.bin",
+      "path": "parameter-golf/data/datasets/fineweb10B_sp1024/fineweb_train_000001.bin",
+      "n_tokens": 100000000,
+      "entropy": 8.649769,
+      "bigram_entropy": 14.538635,
+      "unique_tokens": 888,
+      "vocab_coverage": 0.8672,
+      "top10_concentration": 0.1461,
+      "repetition_ratio": 0.226805,
+      "avg_bytes_per_token": 2.0305
+    },
+    {
+      "file": "fineweb_train_000002.bin",
+      "path": "parameter-golf/data/datasets/fineweb10B_sp1024/fineweb_train_000002.bin",
+      "n_tokens": 100000000,
+      "entropy": 8.655455,
+      "bigram_entropy": 14.510005,
+      "unique_tokens": 886,
+      "vocab_coverage": 0.8652,
+      "top10_concentration": 0.1458,
+      "repetition_ratio": 0.227165,
+      "avg_bytes_per_token": 2.0432
+    },
+    {
+      "file": "fineweb_train_000003.bin",
+      "path": "parameter-golf/data/datasets/fineweb10B_sp1024/fineweb_train_000003.bin",
+      "n_tokens": 100000000,
+      "entropy": 8.653,
+      "bigram_entropy": 14.477949,
+      "unique_tokens": 886,
+      "vocab_coverage": 0.8652,
+      "top10_concentration": 0.1459,
+      "repetition_ratio": 0.246681,
+      "avg_bytes_per_token": 2.0392
+    },
+    {
+      "file": "fineweb_train_000004.bin",
+      "path": "parameter-golf/data/datasets/fineweb10B_sp1024/fineweb_train_000004.bin",
+      "n_tokens": 100000000,
+      "entropy": 8.64956,
+      "bigram_entropy": 14.454526,
+      "unique_tokens": 885,
+      "vocab_coverage": 0.8643,
+      "top10_concentration": 0.1463,
+      "repetition_ratio": 0.249897,
+      "avg_bytes_per_token": 2.0263
+    }
+  ],
+  "summary": {
+    "n_shards": 5,
+    "entropy_mean": 8.651604,
+    "entropy_std": 0.002289,
+    "entropy_min": 8.64956,
+    "entropy_max": 8.655455
+  },
+  "orderings": {
+    "easy_first": [
+      "fineweb_train_000004.bin",
+      "fineweb_train_000001.bin",
+      "fineweb_train_000000.bin",
+      "fineweb_train_000003.bin",
+      "fineweb_train_000002.bin"
+    ],
+    "hard_first": [
+      "fineweb_train_000002.bin",
+      "fineweb_train_000003.bin",
+      "fineweb_train_000000.bin",
+      "fineweb_train_000001.bin",
+      "fineweb_train_000004.bin"
+    ],
+    "quality_first": [
+      "fineweb_train_000001.bin",
+      "fineweb_train_000000.bin",
+      "fineweb_train_000002.bin",
+      "fineweb_train_000003.bin",
+      "fineweb_train_000004.bin"
+    ]
+  }
+}

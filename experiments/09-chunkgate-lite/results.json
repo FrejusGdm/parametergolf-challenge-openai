@@ -1,0 +1,9 @@
+{
+  "status": "pending",
+  "experiment": "09-chunkgate-lite",
+  "val_loss": null,
+  "val_bpb": null,
+  "artifact_bytes": null,
+  "train_time_ms": null,
+  "notes": "Fill after first run"
+}
