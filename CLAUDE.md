@@ -111,3 +111,10 @@ print(f"Job ID: {job.id}")
 - Do NOT mention Anthropic, Claude, or Claude Code in commits, README, or project files
 - Commit often as work progresses
 - Update RESEARCH_LOG.md and journal entries with findings
+- **ALWAYS download HF Jobs results** to the appropriate experiment subfolder after a job completes. Results are ephemeral on HF — save them locally:
+  ```python
+  from huggingface_hub import HfApi
+  api = HfApi()
+  api.hf_hub_download("JosueG/REPO_NAME", "results.json", repo_type="dataset", local_dir="experiments/XX-name/")
+  ```
+  Then commit the downloaded results so they're in git history.

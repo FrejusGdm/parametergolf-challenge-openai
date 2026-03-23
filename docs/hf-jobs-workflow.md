@@ -91,6 +91,28 @@ Results are at `https://huggingface.co/datasets/YourUsername/your-repo`
 5. **Set timeout** — default is 30min, which may be too short
 6. **Clone repos at runtime** — if you need external code, `git clone` inside the script
 
+## IMPORTANT: Always Download Results
+
+HF Hub repos can change or be deleted. **Always download results to the local experiment subfolder after a job completes:**
+
+```python
+from huggingface_hub import HfApi
+api = HfApi()
+
+# Download to the right experiment folder
+api.hf_hub_download(
+    "JosueG/parameter-golf-experiments",
+    "exp01_sliding_window_results.json",
+    repo_type="dataset",
+    local_dir="experiments/01-sliding-window/"
+)
+
+# Then commit!
+# git add experiments/01-sliding-window/ && git commit -m "Add exp01 results"
+```
+
+This ensures results are in git history and accessible even if the Hub repo disappears.
+
 ## Our Setup
 
 - HF Account: `JosueG` (Pro)
