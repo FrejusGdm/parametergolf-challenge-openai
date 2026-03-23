@@ -15,7 +15,7 @@ Think of it like golf — lowest score wins, and you have very little room to wo
 
 ## Why Am I Doing This?
 
-I want to learn more about machine learning — not just from textbooks, but by getting my hands dirty with real research constraints. This challenge is the perfect playground: small enough to wrap your head around, deep enough to learn a ton.
+I want to learn more about machine learning — not just from textbooks, but by getting my hands dirty with real research constraints. This challenge is the perfect playground: small enough to wrap your head around, deep enough to learn a ton. I spent too much time on the Applied side, building apps, webapps finetuning models and etc. I wanted to dive deeper into the layer up so here I am :)
 
 Plus, it sounded really fun.
 

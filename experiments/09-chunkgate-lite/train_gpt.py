@@ -81,6 +81,7 @@ class Hyperparameters:
     chunkgate_inner_layers = int(os.environ.get("CHUNKGATE_INNER_LAYERS", 2))
     chunkgate_gate_temp = float(os.environ.get("CHUNKGATE_GATE_TEMP", 1.0))
     chunkgate_fusion_init = float(os.environ.get("CHUNKGATE_FUSION_INIT", 0.10))
+    enable_torch_compile = bool(int(os.environ.get("ENABLE_TORCH_COMPILE", "1")))
 
     # Optimizer hyperparameters.
     embed_lr = float(os.environ.get("EMBED_LR", 0.6))
@@ -555,7 +556,10 @@ class Rotary(nn.Module):
             self._cos_cached = freqs.cos()[None, None, :, :]
             self._sin_cached = freqs.sin()[None, None, :, :]
             self._seq_len_cached = seq_len
-        return self._cos_cached.to(dtype=dtype), self._sin_cached.to(dtype=dtype)
+        # Validation uses inference_mode(); cached tensors created there can become
+        # "inference tensors" and are illegal to reuse in backward graphs.
+        # Clone on return to always hand out regular tensors to autograd.
+        return self._cos_cached.to(dtype=dtype).clone(), self._sin_cached.to(dtype=dtype).clone()
 
 
 def apply_rotary_emb(x: Tensor, cos: Tensor, sin: Tensor) -> Tensor:
@@ -829,7 +833,8 @@ def main() -> None:
 
     code = Path(__file__).read_text(encoding="utf-8")
     args = Hyperparameters()
-    zeropower_via_newtonschulz5 = torch.compile(zeropower_via_newtonschulz5)
+    if args.enable_torch_compile:
+        zeropower_via_newtonschulz5 = torch.compile(zeropower_via_newtonschulz5)
 
     # -----------------------------
     # DISTRIBUTED + CUDA SETUP
@@ -941,8 +946,12 @@ def main() -> None:
         if isinstance(module, CastedLinear):
             module.float()
     restore_low_dim_params_to_fp32(base_model)
-    compiled_model = torch.compile(base_model, dynamic=False, fullgraph=True)
-    model: nn.Module = DDP(compiled_model, device_ids=[local_rank], broadcast_buffers=False) if distributed else compiled_model
+    model_base: nn.Module
+    if args.enable_torch_compile:
+        model_base = torch.compile(base_model, dynamic=False, fullgraph=True)
+    else:
+        model_base = base_model
+    model: nn.Module = DDP(model_base, device_ids=[local_rank], broadcast_buffers=False) if distributed else model_base
 
     # Optimizer split:
     # - token embedding (Adam) uses EMBED_LR
@@ -1014,6 +1023,7 @@ def main() -> None:
         f"iterations:{args.iterations} warmup_steps:{args.warmup_steps} "
         f"max_wallclock_seconds:{args.max_wallclock_seconds:.3f}"
     )
+    log0(f"enable_torch_compile:{args.enable_torch_compile}")
     if args.chunkgate_enable:
         log0(
             f"chunkgate:enabled stride:{args.chunkgate_stride} inner_layers:{args.chunkgate_inner_layers} "

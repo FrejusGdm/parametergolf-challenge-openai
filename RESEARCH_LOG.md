@@ -100,3 +100,35 @@ Ran 6 shard ordering strategies × 500 steps on all 80 FineWeb shards using HF J
 **Caveats:** Used simplified model (Adam, no Muon/U-Net), 500 steps, single seed.
 
 **Next:** Validate at longer runs, test with full baseline model, explore adaptive curriculum.
+
+---
+
+## 2026-03-23 — Experiment 09 Full A/B on HF Jobs (In Progress)
+
+Running a clean full-run A/B where only `CHUNKGATE_ENABLE` changes.
+
+### Files for this experiment
+- [Experiment notes](experiments/09-chunkgate-lite/notes.md)
+- [Experiment results JSON](experiments/09-chunkgate-lite/results.json)
+- [CUDA trainer (Exp 09)](experiments/09-chunkgate-lite/train_gpt.py)
+- [HF submit script](scripts/hf_submit_exp09_job.py)
+- [HF self-contained job script](scripts/hf_jobs/exp09_hf_job.py)
+
+### Job pair (matched settings)
+- **Baseline control (`CHUNKGATE_ENABLE=0`)**  
+  Job ID: `69c0837471691dc46f16400b`  
+  URL: https://huggingface.co/jobs/JosueG/69c0837471691dc46f16400b  
+  Status at log time: `RUNNING`
+
+- **Exp 09 ChunkGate (`CHUNKGATE_ENABLE=1`)**  
+  Job ID: `69c083d425abd6f920b4e172`  
+  URL: https://huggingface.co/jobs/JosueG/69c083d425abd6f920b4e172  
+  Status at log time: `RUNNING`
+
+### Important fix applied before ChunkGate full rerun
+- Fixed Rotary cache backward crash after step-0 validation (`inference_mode` tensor reuse issue) in:
+  - [experiments/09-chunkgate-lite/train_gpt.py](experiments/09-chunkgate-lite/train_gpt.py)
+
+### Notes
+- Earlier full ChunkGate attempt (`run_id=exp09_hf_full_l4_v1`) failed with the Rotary cache issue and was superseded by the fixed rerun above.
+- After both jobs complete, add final A/B metrics here and in `experiments/09-chunkgate-lite/results.json`.

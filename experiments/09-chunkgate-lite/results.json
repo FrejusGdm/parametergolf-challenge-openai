@@ -1,9 +1,22 @@
 {
-  "status": "pending",
+  "status": "completed",
   "experiment": "09-chunkgate-lite",
-  "val_loss": null,
-  "val_bpb": null,
-  "artifact_bytes": null,
-  "train_time_ms": null,
-  "notes": "Fill after first run"
+  "attribution": {
+    "baseline_repo": "https://github.com/openai/parameter-golf",
+    "inspiration_paper": "https://arxiv.org/abs/2507.07955",
+    "inspiration_code": "https://github.com/goombalab/hnet"
+  },
+  "run_id": "exp09_hf_smoke_retry2",
+  "hardware": "Hugging Face Jobs l4x1",
+  "max_wallclock_seconds": 600,
+  "step_time_ms": 1349.57,
+  "throughput_tokens_per_s": 97117.01,
+  "val_loss": 2.923,
+  "val_bpb": 1.7312,
+  "post_quant_val_loss": 2.93721661,
+  "post_quant_val_bpb": 1.73958512,
+  "artifact_bytes": 11407582,
+  "train_time_ms": 404872,
+  "hypothesis_verdict": "inconclusive",
+  "notes": "Smoke run completed successfully on 1xL4 with compile disabled. Stable and under artifact cap, but quality is far from leaderboard and needs controlled A/B against equal-budget baseline."
 }

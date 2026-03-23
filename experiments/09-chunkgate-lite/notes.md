@@ -57,15 +57,73 @@ CHUNKGATE_INNER_LAYERS=2 \
 torchrun --standalone --nproc_per_node=1 train_gpt.py
 ```
 
+## Suggested GCP Smoke Run (Auto Shutdown + Cleanup)
+```bash
+cd /Users/josuegodeme/Downloads/projects/open-ai-challenge
+PROJECT=testingout-423013 \
+ZONE=us-central1-a \
+AUTO_SHUTDOWN_MINUTES=75 \
+MAX_WALLCLOCK_SECONDS=900 \
+ITERATIONS=600 \
+TRAIN_BATCH_TOKENS=262144 \
+DELETE_INSTANCE_AT_END=1 \
+bash scripts/gcp_exp09_l4_smoke.sh
+```
+
+## Suggested HF Jobs Smoke Run (Preferred)
+```bash
+cd /Users/josuegodeme/Downloads/projects/open-ai-challenge
+RUN_ID=exp09_hf_smoke \
+HF_FLAVOR=l4x1 \
+HF_TIMEOUT=2h \
+TRAIN_SHARDS=1 \
+MAX_WALLCLOCK_SECONDS=600 \
+ITERATIONS=300 \
+TRAIN_BATCH_TOKENS=131072 \
+ENABLE_TORCH_COMPILE=0 \
+WARMUP_STEPS=0 \
+python3 scripts/hf_submit_exp09_job.py
+```
+
+Monitor:
+```bash
+python3 - << 'PY'
+from huggingface_hub import HfApi
+job_id = "PASTE_JOB_ID"
+j = HfApi().inspect_job(job_id=job_id, namespace="JosueG")
+print("status:", j.status.stage)
+for line in HfApi().fetch_job_logs(job_id=job_id, namespace="JosueG"):
+    print(line)
+PY
+```
+
 ## Results
-- val_loss: TBD
-- val_bpb: TBD
-- Artifact size: TBD
-- Training time: TBD
-- Tokens/sec: TBD
+- **Run ID:** `exp09_hf_smoke_retry2`
+- **Hardware:** Hugging Face Jobs `l4x1`
+- **Train time cap:** `600s`
+- **Step time avg:** `1349.57 ms`
+- **Throughput:** `97,117 tok/s`
+- **Pre-quant:** `val_loss=2.9230`, `val_bpb=1.7312`
+- **Post-quant roundtrip:** `val_loss=2.93721661`, `val_bpb=1.73958512`
+- **Artifact size:** `11,407,582 bytes` (under 16MB cap)
+- **HF Job ID:** `69c078da71691dc46f163eb1`
 
 ## What I Learned
-- TBD (fill after first CUDA smoke run)
+- HF Jobs is a viable iteration loop for this challenge once compile is disabled (`ENABLE_TORCH_COMPILE=0`) for stability on `l4x1`.
+- Cost controls worked: short single-GPU run completed and uploaded logs/artifacts automatically.
+- This run is a functional smoke test, not a quality win. Need controlled A/B vs equal-budget baseline to isolate ChunkGate impact.
+
+## Reporting Template (Fill This After Each Run)
+- **Run ID:** `...`
+- **Hardware:** `...`
+- **Train time cap:** `...`
+- **Step time avg:** `... ms`
+- **Throughput:** `... tok/s`
+- **Pre-quant:** `val_loss=...`, `val_bpb=...`
+- **Post-quant roundtrip:** `val_loss=...`, `val_bpb=...`
+- **Artifact size:** `... bytes`
+- **Hypothesis verdict:** `support / reject / inconclusive`
+- **What I learned:** `1-3 concrete bullets`
 
 ## Success Criteria (Hypothesis Gate)
 - Throughput drop vs baseline ≤ 10%

@@ -18,5 +18,24 @@ The baseline matrix_lr=0.04 may not be optimal for this model size and training 
 | 0.04 | — | baseline |
 | 0.08 | — | |
 
+## How to run
+
+All experiments run as HF Jobs on L4 GPUs via `scripts/submit_sweeps.py`. Each job:
+1. Clones `openai/parameter-golf`
+2. Downloads 1 training shard (~100M tokens)
+3. Runs `train_gpt.py` for 500 iterations with the specified override
+4. Pushes results JSON to `JosueG/parameter-golf-sweeps` on HF Hub
+
+```bash
+# Submit all sweep experiments
+python scripts/submit_sweeps.py
+
+# Submit just this experiment
+python scripts/submit_sweeps.py 10
+
+# Check results
+python scripts/monitor_sweeps.py --results
+```
+
 ## Analysis
 TBD

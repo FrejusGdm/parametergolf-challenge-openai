@@ -104,6 +104,7 @@ print(f"Job ID: {job.id}")
 - **Preferred flavor:** `l4x1` (24GB VRAM, ~$0.50/hr)
 - **Scripts must be self-contained** — no local imports, clone repos at runtime
 - **Always push results to Hub** — environment is ephemeral
+- **GPU-specific batch settings:** `grad_accum_steps` is hardcoded to `8 // world_size` in `train_gpt.py` (not an env var). On L4 (24GB), scripts set `TRAIN_BATCH_TOKENS=65536` so each microbatch is 8192 tokens. When switching to H100 for final runs, revert to `TRAIN_BATCH_TOKENS=524288` (the baseline default).
 
 ## Rules
 
