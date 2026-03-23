@@ -122,7 +122,7 @@ def main():
             jobs.append((name, job))
         # Delay between submissions to avoid HF rate limiting on /whoami
         if not dry_run:
-            time.sleep(15)
+            time.sleep(20)
 
     if jobs:
         print(f"\n{'='*50}")

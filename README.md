@@ -43,6 +43,9 @@ parameter-golf/    The original challenge repo (upstream code)
 | 06 | More Layers | Pending | — | Deeper is (usually) better |
 | 07 | Weight Averaging (SWA) | Pending | — | Smoother weights for quantization |
 | 08 | Curriculum Learning | Pending | — | Does shard order matter? |
+| 09 | ChunkGate-Lite | Done | 3.1521 (L4 proxy) | Rejected in matched A/B vs baseline |
+| 20 | Activation Sweep | Running | — | 13 activations on HF Jobs |
+| 21 | Winner Repro (Proxy) | Setup | — | Reproduce current winner stack on HF |
 | XX | Novel Ideas | Pending | — | The fun part! |
 
 ## Research Log

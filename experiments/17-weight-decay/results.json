@@ -1,0 +1,29 @@
+[
+  {
+    "experiment": "17-wd-0.01",
+    "overrides": "WEIGHT_DECAY=0.01",
+    "iterations": 500,
+    "val_bpb": "1.63291427",
+    "val_loss": "2.75710735",
+    "elapsed_seconds": 475.6,
+    "timestamp": "2026-03-23T02:06:59Z"
+  },
+  {
+    "experiment": "17-wd-0.04",
+    "overrides": "WEIGHT_DECAY=0.04",
+    "iterations": 500,
+    "val_bpb": "1.63277204",
+    "val_loss": "2.75686720",
+    "elapsed_seconds": 477.7,
+    "timestamp": "2026-03-23T02:08:41Z"
+  },
+  {
+    "experiment": "17-wd-0",
+    "overrides": "WEIGHT_DECAY=0",
+    "iterations": 500,
+    "val_bpb": "1.63270984",
+    "val_loss": "2.75676217",
+    "elapsed_seconds": 476.2,
+    "timestamp": "2026-03-23T02:06:35Z"
+  }
+]

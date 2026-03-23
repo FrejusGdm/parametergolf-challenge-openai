@@ -1,0 +1,132 @@
+[
+  {
+    "experiment": "20-activation-geglu",
+    "activation": "geglu",
+    "gated": true,
+    "iterations": 500,
+    "val_bpb": "1.62232940",
+    "val_loss": "2.73923523",
+    "elapsed_seconds": 505.0,
+    "timestamp": "2026-03-23T02:12:10Z"
+  },
+  {
+    "experiment": "20-activation-gelu",
+    "activation": "gelu",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.64559264",
+    "val_loss": "2.77851424",
+    "elapsed_seconds": 487.0,
+    "timestamp": "2026-03-23T02:06:01Z"
+  },
+  {
+    "experiment": "20-activation-mish",
+    "activation": "mish",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.66071466",
+    "val_loss": "2.80404714",
+    "elapsed_seconds": 483.5,
+    "timestamp": "2026-03-23T02:11:14Z"
+  },
+  {
+    "experiment": "20-activation-reglu",
+    "activation": "reglu",
+    "gated": true,
+    "iterations": 500,
+    "val_bpb": "1.62501106",
+    "val_loss": "2.74376311",
+    "elapsed_seconds": 493.9,
+    "timestamp": "2026-03-23T02:13:10Z"
+  },
+  {
+    "experiment": "20-activation-relu",
+    "activation": "relu",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.64487507",
+    "val_loss": "2.77730266",
+    "elapsed_seconds": 474.9,
+    "timestamp": "2026-03-23T02:13:07Z"
+  },
+  {
+    "experiment": "20-activation-relu_cubed",
+    "activation": "relu_cubed",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.66209811",
+    "val_loss": "2.80638304",
+    "elapsed_seconds": 478.9,
+    "timestamp": "2026-03-23T02:11:12Z"
+  },
+  {
+    "experiment": "20-activation-relu_sq",
+    "activation": "relu_sq",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.63250895",
+    "val_loss": "2.75642297",
+    "elapsed_seconds": 483.0,
+    "timestamp": "2026-03-23T02:06:54Z"
+  },
+  {
+    "experiment": "20-activation-sigmoid",
+    "activation": "sigmoid",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.71611016",
+    "val_loss": "2.89758011",
+    "elapsed_seconds": 475.3,
+    "timestamp": "2026-03-23T02:10:24Z"
+  },
+  {
+    "experiment": "20-activation-silu",
+    "activation": "silu",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.66436441",
+    "val_loss": "2.81020959",
+    "elapsed_seconds": 485.2,
+    "timestamp": "2026-03-23T02:06:45Z"
+  },
+  {
+    "experiment": "20-activation-softmax",
+    "activation": "softmax",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.72946387",
+    "val_loss": "2.92012729",
+    "elapsed_seconds": 495.5,
+    "timestamp": "2026-03-23T02:12:38Z"
+  },
+  {
+    "experiment": "20-activation-softplus",
+    "activation": "softplus",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.70224314",
+    "val_loss": "2.87416624",
+    "elapsed_seconds": 488.8,
+    "timestamp": "2026-03-23T02:15:40Z"
+  },
+  {
+    "experiment": "20-activation-swiglu",
+    "activation": "swiglu",
+    "gated": true,
+    "iterations": 500,
+    "val_bpb": "1.62300759",
+    "val_loss": "2.74038034",
+    "elapsed_seconds": 498.0,
+    "timestamp": "2026-03-23T02:13:43Z"
+  },
+  {
+    "experiment": "20-activation-tanh",
+    "activation": "tanh",
+    "gated": false,
+    "iterations": 500,
+    "val_bpb": "1.69415631",
+    "val_loss": "2.86051197",
+    "elapsed_seconds": 486.7,
+    "timestamp": "2026-03-23T02:12:00Z"
+  }
+]

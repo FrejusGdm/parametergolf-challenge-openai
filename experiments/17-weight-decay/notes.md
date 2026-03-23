@@ -13,9 +13,9 @@ The baseline has no weight decay. Multiple leaderboard entries use WD=0.04 with 
 
 | weight_decay | val_bpb | Notes |
 |-------------|---------|-------|
-| 0 | — | baseline |
-| 0.01 | — | |
-| 0.04 | — | |
+| 0 | 1.6327 | baseline, winner |
+| 0.01 | 1.6329 | |
+| 0.04 | 1.6328 | |
 
 ## Analysis
-TBD
+Weight decay has essentially no effect at 500 steps: the spread across all three values is only 0.0002 bpb, well within noise. The baseline (WD=0) is technically best. Weight decay may help more on longer training runs where overfitting becomes a concern, but at this budget it adds no value.

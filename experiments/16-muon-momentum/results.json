@@ -1,0 +1,29 @@
+[
+  {
+    "experiment": "16-momentum-0.90",
+    "overrides": "MUON_MOMENTUM=0.90",
+    "iterations": 500,
+    "val_bpb": "1.63972572",
+    "val_loss": "2.76860820",
+    "elapsed_seconds": 488.2,
+    "timestamp": "2026-03-23T02:04:56Z"
+  },
+  {
+    "experiment": "16-momentum-0.95",
+    "overrides": "MUON_MOMENTUM=0.95",
+    "iterations": 500,
+    "val_bpb": "1.63296825",
+    "val_loss": "2.75719849",
+    "elapsed_seconds": 474.8,
+    "timestamp": "2026-03-23T02:06:19Z"
+  },
+  {
+    "experiment": "16-momentum-0.99",
+    "overrides": "MUON_MOMENTUM=0.99",
+    "iterations": 500,
+    "val_bpb": "1.63060873",
+    "val_loss": "2.75321454",
+    "elapsed_seconds": 479.8,
+    "timestamp": "2026-03-23T02:06:52Z"
+  }
+]

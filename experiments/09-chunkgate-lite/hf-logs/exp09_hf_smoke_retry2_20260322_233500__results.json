@@ -1,0 +1,42 @@
+{
+  "status": "success",
+  "error": null,
+  "run_id": "exp09_hf_smoke_retry2",
+  "started_at_unix": 1774221575.83596,
+  "finished_at_unix": 1774222500.4660711,
+  "duration_seconds": 924.6301112174988,
+  "config": {
+    "train_shards": 1,
+    "max_wallclock_seconds": 600,
+    "iterations": 300,
+    "train_batch_tokens": 131072,
+    "train_seq_len": 1024,
+    "val_loss_every": 0,
+    "train_log_every": 50,
+    "warmup_steps": 0,
+    "enable_torch_compile": false,
+    "chunkgate_enable": true,
+    "chunkgate_stride": 4,
+    "chunkgate_inner_layers": 2,
+    "chunkgate_gate_temp": 1.0,
+    "chunkgate_fusion_init": 0.1
+  },
+  "metrics": {
+    "post_quant_val_loss": 2.93721661,
+    "post_quant_val_bpb": 1.73958512
+  },
+  "citations": [
+    {
+      "name": "OpenAI Parameter Golf baseline",
+      "url": "https://github.com/openai/parameter-golf"
+    },
+    {
+      "name": "H-Net paper",
+      "url": "https://arxiv.org/abs/2507.07955"
+    },
+    {
+      "name": "H-Net code",
+      "url": "https://github.com/goombalab/hnet"
+    }
+  ]
+}

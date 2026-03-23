@@ -13,9 +13,9 @@ The Muon optimizer uses a momentum parameter (default 0.95). Higher momentum (0.
 
 | muon_momentum | val_bpb | Notes |
 |---------------|---------|-------|
-| 0.90 | — | |
-| 0.95 | — | baseline |
-| 0.99 | — | |
+| 0.90 | 1.6397 | |
+| 0.95 | 1.6330 | baseline |
+| 0.99 | 1.6306 | winner |
 
 ## Analysis
-TBD
+Higher momentum is slightly better: 0.99 beats baseline 0.95 by 0.0024 bpb, while 0.90 is worse by 0.0067. The effect is modest but consistent with leaderboard entries using 0.99. Higher momentum provides smoother gradient estimates, which helps with short training runs.

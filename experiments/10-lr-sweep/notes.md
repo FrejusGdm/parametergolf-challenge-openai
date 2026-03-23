@@ -13,10 +13,10 @@ The baseline matrix_lr=0.04 may not be optimal for this model size and training 
 
 | matrix_lr | val_bpb | Notes |
 |-----------|---------|-------|
-| 0.01 | — | |
-| 0.02 | — | |
-| 0.04 | — | baseline |
-| 0.08 | — | |
+| 0.01 | 1.8766 | |
+| 0.02 | 1.7129 | |
+| 0.04 | 1.6332 | baseline |
+| 0.08 | 1.6051 | winner |
 
 ## How to run
 
@@ -38,4 +38,4 @@ python scripts/monitor_sweeps.py --results
 ```
 
 ## Analysis
-TBD
+Higher LR wins decisively: 0.08 beats the 0.04 baseline by 0.028 bpb, and lower LRs degrade sharply (0.01 is +0.27 worse). With only 500 steps, the model benefits from aggressive learning rates that converge faster. Worth testing 0.10-0.12 to see if we can push further before divergence.

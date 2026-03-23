@@ -95,7 +95,7 @@ def main():
         if job:
             jobs.append((act, job))
         if not dry_run:
-            time.sleep(15)
+            time.sleep(20)
 
     if jobs:
         print(f"\n{'='*50}")

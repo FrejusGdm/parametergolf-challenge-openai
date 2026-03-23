@@ -97,7 +97,7 @@ for line in HfApi().fetch_job_logs(job_id=job_id, namespace="JosueG"):
 PY
 ```
 
-## Results
+## Smoke Run Results
 - **Run ID:** `exp09_hf_smoke_retry2`
 - **Hardware:** Hugging Face Jobs `l4x1`
 - **Train time cap:** `600s`
@@ -108,10 +108,36 @@ PY
 - **Artifact size:** `11,407,582 bytes` (under 16MB cap)
 - **HF Job ID:** `69c078da71691dc46f163eb1`
 
+## Full A/B Results (Matched HF `l4x1`, 600s cap)
+
+### Baseline Control (`CHUNKGATE_ENABLE=0`)
+- **Run ID:** `baseline_hf_full_l4_v1`
+- **HF Job ID:** `69c0837471691dc46f16400b`
+- **Pre-quant:** `val_loss=5.1764`, `val_bpb=3.0658`
+- **Post-quant roundtrip:** `val_loss=5.19749717`, `val_bpb=3.07825059`
+- **Step time avg:** `6106.34 ms`
+- **Artifact size:** `5,965,306 bytes`
+
+### Exp 09 ChunkGate (`CHUNKGATE_ENABLE=1`)
+- **Run ID:** `exp09_hf_full_l4_v2`
+- **HF Job ID:** `69c083d425abd6f920b4e172`
+- **Pre-quant:** `val_loss=5.3055`, `val_bpb=3.1422`
+- **Post-quant roundtrip:** `val_loss=5.32222805`, `val_bpb=3.15212324`
+- **Step time avg:** `6426.60 ms`
+- **Artifact size:** `7,050,647 bytes`
+
+### A/B Verdict
+- **Bigger is worse for bpb**, so Exp 09 underperformed baseline.
+- Post-quant delta: `+0.07387265 bpb` (ChunkGate worse).
+- Pre-quant delta: `+0.0764 bpb` (ChunkGate worse).
+- Throughput impact: step time `+5.25%` slower (still within the original `<=10%` slowdown gate, but quality regressed).
+- **Hypothesis verdict:** `reject` for this configuration.
+
 ## What I Learned
 - HF Jobs is a viable iteration loop for this challenge once compile is disabled (`ENABLE_TORCH_COMPILE=0`) for stability on `l4x1`.
 - Cost controls worked: short single-GPU run completed and uploaded logs/artifacts automatically.
-- This run is a functional smoke test, not a quality win. Need controlled A/B vs equal-budget baseline to isolate ChunkGate impact.
+- Controlled full A/B showed ChunkGate hurt both quality (`val_bpb`) and speed at matched budget.
+- Next Exp 09 work should focus on reducing added params/latency before any further quality tuning.
 
 ## Reporting Template (Fill This After Each Run)
 - **Run ID:** `...`

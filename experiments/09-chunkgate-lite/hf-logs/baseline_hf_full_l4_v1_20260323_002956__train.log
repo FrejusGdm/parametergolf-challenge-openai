@@ -1,0 +1,34 @@
+logs/baseline_hf_full_l4_v1.txt
+val_bpb:enabled tokenizer_kind=sentencepiece tokenizer_path=./data/tokenizers/fineweb_1024_bpe.model
+train_loader:dataset:fineweb10B_sp1024 train_shards:80
+val_loader:shards pattern=./data/datasets/fineweb10B_sp1024/fineweb_val_*.bin tokens:62021632
+model_params:17059912
+world_size:1 grad_accum_steps:8
+sdp_backends:cudnn=False flash=True mem_efficient=False math=False
+attention_mode:gqa num_heads:8 num_kv_heads:4
+tie_embeddings:True embed_lr:0.05 head_lr:0.0 matrix_lr:0.04 scalar_lr:0.04
+train_batch_tokens:524288 train_seq_len:1024 iterations:20000 warmup_steps:0 max_wallclock_seconds:600.000
+enable_torch_compile:False
+chunkgate:disabled
+seed:1337
+step:0/20000 val_loss:6.9357 val_bpb:4.1077 train_time:0ms step_avg:0.02ms
+step:1/20000 train_loss:6.9358 train_time:6043ms step_avg:6042.95ms
+step:2/20000 train_loss:16.8430 train_time:12145ms step_avg:6072.27ms
+step:3/20000 train_loss:15.8936 train_time:18250ms step_avg:6083.26ms
+step:4/20000 train_loss:14.6295 train_time:24354ms step_avg:6088.59ms
+step:5/20000 train_loss:13.5406 train_time:30459ms step_avg:6091.90ms
+step:6/20000 train_loss:12.1801 train_time:36569ms step_avg:6094.83ms
+step:7/20000 train_loss:11.0638 train_time:42683ms step_avg:6097.60ms
+step:8/20000 train_loss:10.1041 train_time:48804ms step_avg:6100.44ms
+step:9/20000 train_loss:9.1291 train_time:54905ms step_avg:6100.52ms
+step:10/20000 train_loss:8.3359 train_time:61002ms step_avg:6100.16ms
+step:99/20000 val_loss:5.1764 val_bpb:3.0658 train_time:604527ms step_avg:6106.34ms
+stopping_early: wallclock_cap train_time:604527ms step:99/20000
+peak memory allocated: 13896 MiB reserved: 14216 MiB
+Serialized model: 67224983 bytes
+Code size: 52898 bytes
+Total submission size: 67277881 bytes
+Serialized model int8+zlib: 5912408 bytes (payload:17178912 raw_torch:17224025 payload_ratio:3.91x)
+Total submission size int8+zlib: 5965306 bytes
+final_int8_zlib_roundtrip val_loss:5.1975 val_bpb:3.0783 eval_time:239677ms
+final_int8_zlib_roundtrip_exact val_loss:5.19749717 val_bpb:3.07825059

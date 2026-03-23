@@ -1,0 +1,29 @@
+[
+  {
+    "experiment": "15-seqlen-1024",
+    "overrides": "TRAIN_SEQ_LEN=1024",
+    "iterations": 500,
+    "val_bpb": "1.63238581",
+    "val_loss": "2.75621507",
+    "elapsed_seconds": 477.6,
+    "timestamp": "2026-03-23T02:08:07Z"
+  },
+  {
+    "experiment": "15-seqlen-2048",
+    "overrides": "TRAIN_SEQ_LEN=2048",
+    "iterations": 500,
+    "val_bpb": "1.61540324",
+    "val_loss": "2.72754070",
+    "elapsed_seconds": 533.5,
+    "timestamp": "2026-03-23T02:07:47Z"
+  },
+  {
+    "experiment": "15-seqlen-512",
+    "overrides": "TRAIN_SEQ_LEN=512",
+    "iterations": 500,
+    "val_bpb": "1.65908006",
+    "val_loss": "2.80128718",
+    "elapsed_seconds": 455.2,
+    "timestamp": "2026-03-23T02:05:45Z"
+  }
+]

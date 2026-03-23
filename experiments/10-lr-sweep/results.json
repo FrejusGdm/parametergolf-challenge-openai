@@ -1,0 +1,38 @@
+[
+  {
+    "experiment": "10-lr-sweep-lr0.01",
+    "overrides": "MATRIX_LR=0.01",
+    "iterations": 500,
+    "val_bpb": "1.87662356",
+    "val_loss": "3.16860028",
+    "elapsed_seconds": 494.8,
+    "timestamp": "2026-03-23T00:18:18Z"
+  },
+  {
+    "experiment": "10-lr-sweep-lr0.02",
+    "overrides": "MATRIX_LR=0.02",
+    "iterations": 500,
+    "val_bpb": "1.71287701",
+    "val_loss": "2.89212108",
+    "elapsed_seconds": 479.9,
+    "timestamp": "2026-03-23T00:18:20Z"
+  },
+  {
+    "experiment": "10-lr-sweep-lr0.04",
+    "overrides": "MATRIX_LR=0.04",
+    "iterations": 500,
+    "val_bpb": "1.63318980",
+    "val_loss": "2.75757256",
+    "elapsed_seconds": 482.3,
+    "timestamp": "2026-03-23T00:18:37Z"
+  },
+  {
+    "experiment": "10-lr-sweep-lr0.08",
+    "overrides": "MATRIX_LR=0.08",
+    "iterations": 500,
+    "val_bpb": "1.60511511",
+    "val_loss": "2.71016962",
+    "elapsed_seconds": 483.9,
+    "timestamp": "2026-03-23T00:19:01Z"
+  }
+]

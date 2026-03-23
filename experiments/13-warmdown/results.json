@@ -1,0 +1,38 @@
+[
+  {
+    "experiment": "13-warmdown-1200",
+    "overrides": "WARMDOWN_ITERS=1200",
+    "iterations": 500,
+    "val_bpb": "1.63310155",
+    "val_loss": "2.75742356",
+    "elapsed_seconds": 485.5,
+    "timestamp": "2026-03-23T00:24:15Z"
+  },
+  {
+    "experiment": "13-warmdown-2400",
+    "overrides": "WARMDOWN_ITERS=2400",
+    "iterations": 500,
+    "val_bpb": "1.70140548",
+    "val_loss": "2.87275188",
+    "elapsed_seconds": 481.8,
+    "timestamp": "2026-03-23T00:22:03Z"
+  },
+  {
+    "experiment": "13-warmdown-3600",
+    "overrides": "WARMDOWN_ITERS=3600",
+    "iterations": 500,
+    "val_bpb": "1.79139768",
+    "val_loss": "3.02469995",
+    "elapsed_seconds": 483.2,
+    "timestamp": "2026-03-23T00:23:58Z"
+  },
+  {
+    "experiment": "13-warmdown-600",
+    "overrides": "WARMDOWN_ITERS=600",
+    "iterations": 500,
+    "val_bpb": "1.63168253",
+    "val_loss": "2.75502760",
+    "elapsed_seconds": 487.2,
+    "timestamp": "2026-03-23T00:22:28Z"
+  }
+]

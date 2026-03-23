@@ -6,17 +6,65 @@
     "inspiration_paper": "https://arxiv.org/abs/2507.07955",
     "inspiration_code": "https://github.com/goombalab/hnet"
   },
-  "run_id": "exp09_hf_smoke_retry2",
-  "hardware": "Hugging Face Jobs l4x1",
-  "max_wallclock_seconds": 600,
-  "step_time_ms": 1349.57,
-  "throughput_tokens_per_s": 97117.01,
-  "val_loss": 2.923,
-  "val_bpb": 1.7312,
-  "post_quant_val_loss": 2.93721661,
-  "post_quant_val_bpb": 1.73958512,
-  "artifact_bytes": 11407582,
-  "train_time_ms": 404872,
-  "hypothesis_verdict": "inconclusive",
-  "notes": "Smoke run completed successfully on 1xL4 with compile disabled. Stable and under artifact cap, but quality is far from leaderboard and needs controlled A/B against equal-budget baseline."
+  "smoke_run": {
+    "run_id": "exp09_hf_smoke_retry2",
+    "job_id": "69c078da71691dc46f163eb1",
+    "hardware": "Hugging Face Jobs l4x1",
+    "max_wallclock_seconds": 600,
+    "step_time_ms": 1349.57,
+    "throughput_tokens_per_s": 97117.01,
+    "val_loss": 2.923,
+    "val_bpb": 1.7312,
+    "post_quant_val_loss": 2.93721661,
+    "post_quant_val_bpb": 1.73958512,
+    "artifact_bytes": 11407582,
+    "train_time_ms": 404872,
+    "hypothesis_verdict": "inconclusive",
+    "notes": "Smoke run completed successfully on 1xL4 with compile disabled."
+  },
+  "full_ab": {
+    "date_local": "2026-03-22",
+    "hardware": "Hugging Face Jobs l4x1",
+    "max_wallclock_seconds": 600,
+    "matched_config": {
+      "iterations": 20000,
+      "train_batch_tokens": 524288,
+      "train_seq_len": 1024,
+      "warmup_steps": 0,
+      "enable_torch_compile": false
+    },
+    "baseline": {
+      "run_id": "baseline_hf_full_l4_v1",
+      "job_id": "69c0837471691dc46f16400b",
+      "chunkgate_enable": false,
+      "stop_step": 99,
+      "step_avg_ms": 6106.34,
+      "pre_quant_val_loss": 5.1764,
+      "pre_quant_val_bpb": 3.0658,
+      "post_quant_val_loss": 5.19749717,
+      "post_quant_val_bpb": 3.07825059,
+      "artifact_bytes": 5965306
+    },
+    "chunkgate": {
+      "run_id": "exp09_hf_full_l4_v2",
+      "job_id": "69c083d425abd6f920b4e172",
+      "chunkgate_enable": true,
+      "stop_step": 94,
+      "step_avg_ms": 6426.6,
+      "pre_quant_val_loss": 5.3055,
+      "pre_quant_val_bpb": 3.1422,
+      "post_quant_val_loss": 5.32222805,
+      "post_quant_val_bpb": 3.15212324,
+      "artifact_bytes": 7050647
+    },
+    "delta_chunkgate_minus_baseline": {
+      "pre_quant_val_bpb": 0.0764,
+      "post_quant_val_bpb": 0.07387265,
+      "step_avg_ms": 320.26,
+      "step_avg_pct": 5.25,
+      "artifact_bytes": 1085341
+    },
+    "hypothesis_verdict": "reject",
+    "notes": "ChunkGate was worse than baseline on quality and slower at matched budget."
+  }
 }

@@ -178,3 +178,78 @@ Ran the **full baseline model** (Muon optimizer, U-Net skips, GQA) with easy_fir
 [Full results on HF Hub](https://huggingface.co/datasets/JosueG/parameter-golf-curriculum)
 
 **Moving on to:** Experiment 01 (Sliding Window Eval) — guaranteed ~0.034 free bpb improvement.
+
+---
+
+## 2026-03-23 — Hyperparameter Sweep (Experiments 10-17) + Activation Sweep (Experiment 20)
+
+Ran 41 short experiments (500 steps each) on HF Jobs L4 GPUs to sweep hyperparameters and activation functions.
+
+### HP Sweep Winners (experiments 10-17)
+
+| Param | Baseline | Best | val_bpb | Delta |
+|-------|----------|------|---------|-------|
+| **Matrix LR** | 0.04 | **0.08** | 1.6051 | -0.028 (biggest win!) |
+| **Embed LR** | 0.05 | **0.02** | 1.6161 | -0.016 |
+| **Seq Length** | 1024 | **2048** | 1.6154 | -0.017 |
+| **Muon Momentum** | 0.95 | **0.99** | 1.6306 | -0.002 |
+| Warmdown | 1200 | 600 | 1.6317 | -0.001 |
+| Warmup | 20 | 5 | 1.6328 | negligible |
+| Weight Decay | 0 | 0 | 1.6327 | no effect at 500 steps |
+| Batch Size | — | — | OOM on L4 | untested |
+
+### Activation Function Sweep (experiment 20)
+
+| Rank | Activation | val_bpb | vs baseline (relu²) |
+|------|-----------|---------|---------------------|
+| 1 | **geglu** | **1.6223** | -0.010 |
+| 2 | **swiglu** | **1.6230** | -0.010 |
+| 3 | **reglu** | **1.6250** | -0.008 |
+| 4 | relu_sq (baseline) | 1.6325 | — |
+| 5 | relu | 1.6449 | +0.012 |
+| 6 | gelu | 1.6456 | +0.013 |
+| ... | sigmoid, softmax | 1.71+ | much worse |
+
+### Key Insights
+1. **Higher matrix LR (0.08)** is the single biggest knob — 2× baseline LR helps converge faster in short runs
+2. **Lower embed LR (0.02)** — tied embeddings prefer conservative updates
+3. **Gated activations dominate** — GEGLU/SwiGLU beat ReLU² despite having fewer effective hidden units (2/3 hidden dim to compensate for gate matrix)
+4. **Seq length 2048** confirms leaderboard trend — longer context helps even at 500 steps
+5. **Weight decay doesn't help at 500 steps** — may need longer runs to see regularization benefit (leaderboard uses WD=0.04)
+6. **Warmup barely matters** — all values within 0.0003 bpb
+
+### Next Steps
+- Run experiment 18: combine winners (LR=0.08, embed_lr=0.02, seq_len=2048, momentum=0.99, geglu)
+- Run experiment 19: combined + MLP 3x
+- Validate top configs at longer runs (2000+ steps)
+- Test batch size sweep on H100 when available
+
+---
+
+## 2026-03-22 — Experiment 21 Setup: Winner Reproduction (Proxy)
+
+Created a new experiment to reproduce the current winning recipe from the official records, pinned to the exact commit that introduced the winner update.
+
+### Goal
+- Reproduce the winner architecture/quantization path faithfully.
+- Run a cost-controlled single-GPU proxy on HF Jobs (`l4x1`) for fast iteration.
+- Use this as the base for targeted improvements (SWA schedule, bigram size, WD, curriculum on top).
+
+### Source pinned for repro
+- Repo: https://github.com/openai/parameter-golf
+- Commit: `9f9d53343aa44fe1fbd94ae32650ca2e83602a10`
+- Script: `records/track_10min_16mb/2026-03-20_10L_Int5MLP_MuonWD04_SWA50/train_gpt.py`
+
+### Files added
+- [Experiment notes](experiments/21-winner-repro/notes.md)
+- [Experiment results JSON](experiments/21-winner-repro/results.json)
+- [HF self-contained job script](scripts/hf_jobs/exp21_hf_job.py)
+- [HF submit script](scripts/hf_submit_exp21_job.py)
+
+### Notes
+- This is a **proxy reproduction** on `l4x1`, not a compute-matched 8xH100 run.
+- L4-safe defaults are applied (`TRAIN_BATCH_TOKENS=131072`, `VAL_BATCH_SIZE=131072`) to reduce OOM risk while preserving the winning model path.
+- Submitted first run:
+  - Job ID: `69c0a2c771691dc46f1640b3`
+  - Run ID: `exp21_winner_repro_l4_v1`
+  - Status at log time: `RUNNING`

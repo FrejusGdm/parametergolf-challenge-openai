@@ -1,0 +1,32 @@
+{
+  "status": "running",
+  "experiment": "21-winner-repro",
+  "run_id": "exp21_winner_repro_l4_v1",
+  "hf_job_id": "69c0a2c771691dc46f1640b3",
+  "hardware": "Hugging Face Jobs l4x1 (proxy)",
+  "source": {
+    "repo": "https://github.com/openai/parameter-golf",
+    "commit": "9f9d53343aa44fe1fbd94ae32650ca2e83602a10",
+    "winner_folder": "records/track_10min_16mb/2026-03-20_10L_Int5MLP_MuonWD04_SWA50"
+  },
+  "config": {
+    "max_wallclock_seconds": 600,
+    "train_shards": 1,
+    "train_seq_len": 2048,
+    "train_batch_tokens": 131072,
+    "val_batch_size": 131072,
+    "eval_stride": 64
+  },
+  "metrics": {
+    "pre_quant_val_loss": null,
+    "pre_quant_val_bpb": null,
+    "post_quant_val_loss": null,
+    "post_quant_val_bpb": null,
+    "post_quant_sliding_val_loss": null,
+    "post_quant_sliding_val_bpb": null,
+    "artifact_bytes": null,
+    "step_avg_ms": null
+  },
+  "hypothesis_verdict": "pending",
+  "notes": "Planned winner-repro proxy run. Full score parity with 8xH100 is not expected on l4x1."
+}

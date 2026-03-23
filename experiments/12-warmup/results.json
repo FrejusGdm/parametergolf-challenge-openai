@@ -1,0 +1,38 @@
+[
+  {
+    "experiment": "12-warmup-100",
+    "overrides": "WARMUP_STEPS=100",
+    "iterations": 500,
+    "val_bpb": "1.63297080",
+    "val_loss": "2.75720280",
+    "elapsed_seconds": 503.4,
+    "timestamp": "2026-03-23T00:21:14Z"
+  },
+  {
+    "experiment": "12-warmup-20",
+    "overrides": "WARMUP_STEPS=20",
+    "iterations": 500,
+    "val_bpb": "1.63287953",
+    "val_loss": "2.75704869",
+    "elapsed_seconds": 483.1,
+    "timestamp": "2026-03-23T00:21:46Z"
+  },
+  {
+    "experiment": "12-warmup-5",
+    "overrides": "WARMUP_STEPS=5",
+    "iterations": 500,
+    "val_bpb": "1.63282524",
+    "val_loss": "2.75695702",
+    "elapsed_seconds": 474.2,
+    "timestamp": "2026-03-23T00:20:56Z"
+  },
+  {
+    "experiment": "12-warmup-50",
+    "overrides": "WARMUP_STEPS=50",
+    "iterations": 500,
+    "val_bpb": "1.63308389",
+    "val_loss": "2.75739375",
+    "elapsed_seconds": 488.0,
+    "timestamp": "2026-03-23T00:23:54Z"
+  }
+]
