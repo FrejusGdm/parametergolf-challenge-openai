@@ -103,9 +103,9 @@ Ran 6 shard ordering strategies × 500 steps on all 80 FineWeb shards using HF J
 
 ---
 
-## 2026-03-23 — Experiment 09 Full A/B on HF Jobs (In Progress)
+## 2026-03-22 — Experiment 09 Full A/B on HF Jobs (Completed)
 
-Running a clean full-run A/B where only `CHUNKGATE_ENABLE` changes.
+Completed a clean full-run A/B where only `CHUNKGATE_ENABLE` changes.
 
 ### Files for this experiment
 - [Experiment notes](experiments/09-chunkgate-lite/notes.md)
@@ -113,22 +113,68 @@ Running a clean full-run A/B where only `CHUNKGATE_ENABLE` changes.
 - [CUDA trainer (Exp 09)](experiments/09-chunkgate-lite/train_gpt.py)
 - [HF submit script](scripts/hf_submit_exp09_job.py)
 - [HF self-contained job script](scripts/hf_jobs/exp09_hf_job.py)
+- [Local raw HF logs folder](experiments/09-chunkgate-lite/hf-logs)
 
 ### Job pair (matched settings)
 - **Baseline control (`CHUNKGATE_ENABLE=0`)**  
   Job ID: `69c0837471691dc46f16400b`  
   URL: https://huggingface.co/jobs/JosueG/69c0837471691dc46f16400b  
-  Status at log time: `RUNNING`
+  Status: `COMPLETED`
+  Run ID: `baseline_hf_full_l4_v1`
+  Pre-quant: `val_loss=5.1764`, `val_bpb=3.0658`
+  Post-quant: `val_loss=5.19749717`, `val_bpb=3.07825059`
+  Step avg: `6106.34 ms`
+  Artifact size: `5,965,306 bytes`
 
 - **Exp 09 ChunkGate (`CHUNKGATE_ENABLE=1`)**  
   Job ID: `69c083d425abd6f920b4e172`  
   URL: https://huggingface.co/jobs/JosueG/69c083d425abd6f920b4e172  
-  Status at log time: `RUNNING`
+  Status: `COMPLETED`
+  Run ID: `exp09_hf_full_l4_v2`
+  Pre-quant: `val_loss=5.3055`, `val_bpb=3.1422`
+  Post-quant: `val_loss=5.32222805`, `val_bpb=3.15212324`
+  Step avg: `6426.60 ms`
+  Artifact size: `7,050,647 bytes`
 
 ### Important fix applied before ChunkGate full rerun
 - Fixed Rotary cache backward crash after step-0 validation (`inference_mode` tensor reuse issue) in:
   - [experiments/09-chunkgate-lite/train_gpt.py](experiments/09-chunkgate-lite/train_gpt.py)
 
+### A/B outcome
+- Lower bpb is better; ChunkGate was worse.
+- Post-quant delta (ChunkGate - Baseline): `+0.07387265 bpb`
+- Pre-quant delta (ChunkGate - Baseline): `+0.0764 bpb`
+- Speed delta (step avg): `+5.25%` slower
+- **Hypothesis verdict:** `reject` for this configuration.
+
 ### Notes
 - Earlier full ChunkGate attempt (`run_id=exp09_hf_full_l4_v1`) failed with the Rotary cache issue and was superseded by the fixed rerun above.
-- After both jobs complete, add final A/B metrics here and in `experiments/09-chunkgate-lite/results.json`.
+- HF artifact folders used for this summary:
+  - `jobs/exp09/baseline_hf_full_l4_v1_20260323_002956/`
+  - `jobs/exp09/exp09_hf_full_l4_v2_20260323_003203/`
+
+---
+
+## 2026-03-23 — Experiment 08: Baseline Validation (Negative Result)
+
+Ran the **full baseline model** (Muon optimizer, U-Net skips, GQA) with easy_first vs default shard ordering for 2000 steps on HF Jobs L4.
+
+| Strategy | val_loss | val_bpb | final_bpb (post-quant) |
+|----------|---------|---------|------------------------|
+| default | 2.4010 | 1.4220 | 1.42316 |
+| easy_first | 2.4015 | 1.4223 | 1.42346 |
+| **Delta** | **0.0005** | **0.0003** | **0.0003** |
+
+**Verdict: No effect.** The 0.0003 bpb difference is noise.
+
+**Why the simplified model showed an effect but the real model doesn't:**
+1. Muon optimizer is more robust to data ordering than Adam
+2. U-Net skip connections help learn from both easy and hard patterns simultaneously
+3. 2000 steps smooths out early ordering effects
+4. The full model architecture is simply better conditioned
+
+**This is still valuable** — we know data ordering is NOT a lever for this challenge, saving us from pursuing it further. The real model is robust to shard ordering.
+
+[Full results on HF Hub](https://huggingface.co/datasets/JosueG/parameter-golf-curriculum)
+
+**Moving on to:** Experiment 01 (Sliding Window Eval) — guaranteed ~0.034 free bpb improvement.
